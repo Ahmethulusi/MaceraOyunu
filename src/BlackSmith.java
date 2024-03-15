@@ -20,6 +20,7 @@ public class BlackSmith extends NormalLoc{
 
         while(flag){
             System.out.println("----------- Demirciye hoşgeldiniz ! -----------");
+            System.out.println("Mevcut paranız : "+ this.getPlayer().getMoney());
             int avaliable_levelof_weapon = this.getPlayer().getInventory().getWeapon().getLevel();
             int avaliable_levelof_armor = this.getPlayer().getInventory().getArmor().getLevel();
             System.out.println("---------------------------------");
@@ -30,7 +31,7 @@ public class BlackSmith extends NormalLoc{
             System.out.println("1 - Zırhı tamir ettir ! ");
             System.out.println("2 - "+(avaliable_levelof_weapon+1)+" level silah geliştirmesi");
             System.out.println("3 - "+(avaliable_levelof_armor+1)+" level zırh geliştirmesi");
-            System.out.println("4 - Çıkış yap");
+            System.out.println("4 - Geri dön");
             int selection = input.nextInt();
             switch (selection){
                 case 1:

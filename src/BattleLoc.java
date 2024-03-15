@@ -29,33 +29,32 @@ public abstract class BattleLoc extends Location {
                String name = this.getName();
                if(name.equals("Mağara")){
                    if(!getPlayer().isCave_flag()){
-                       System.out.println("Temiz bölge");
+                       System.out.println("Temizlenmiş bölge ... ");
                        return true;
                    }
                }else if(name.equals("Orman")){
                    if(!getPlayer().isAhead_of_forest_flag()){
-                       System.out.println("Temiz bölge");
+                       System.out.println("Temizlenmiş bölge ...");
                        return true;
                    }
                }if(name.equals("Terkedilmiş Ev")){
                    if(!getPlayer().isEnemy_camp1_flag()){
-                       System.out.println("Temiz bölge");
+                       System.out.println("Temizlenmiş bölge ...");
                        return true;
                    }
                }if(name.equals("Yükselen duman")){
                    if(!getPlayer().isEnemy_camp2_flag()) {
-                       System.out.println("Temiz bölge");
+                       System.out.println("Temizlenmiş bölge ... ");
                        return true;
                    }
                }
 
-               System.out.println("Şu anda " + this.getName() + " konumundasınız.");
-               System.out.println("Dikkatli olun burada " + this.getObstacle().getName() + " var");
-               obstacleStats();
-               playerStats();
+            //   obstacleStats();
+           //    playerStats();
+
+               System.out.println("Dikkat et buradak 1 veya daha fazla "+this.getObstacle().getName()+" olabilir.");
                System.out.println("<S>avaş veya <K>aç");
                String selection = input.next().toUpperCase();
-
                if(selection.equals("S")){
                    boolean isWon= savas(this.getObstacle().getStr_Award());
                    return isWon;
@@ -121,7 +120,7 @@ public abstract class BattleLoc extends Location {
 
                 if (targetawardcount > 0) {
                     //Oyuncu savaşı kazanırsa gelen ödüllerle birlikte envanterdeki ve parasındaki düzenlemeler aşağıdaki gibi olur.
-                    playerStats();
+                 //   playerStats();
                     Awards selectedaward = Awards.getAwardObjByName(name);
 //                    this.getPlayer().getInventory().addAward(selectedaward);
                     this.getPlayer().getInventory().setCountList((targetawardcount + obs_number), this.getObstacle().getStr_Award());
@@ -144,7 +143,7 @@ public abstract class BattleLoc extends Location {
                     }
                 } else {
                     //Oyuncu savaşı kazanırsa gelen ödüllerle birlikte envanterdeki ve paramdaki düzenlemeler aşağıdaki gibi olur.
-                    playerStats();
+               //     playerStats();
                     Awards selectedaward = Awards.getAwardObjByName(name);
                     this.getPlayer().getInventory().addAward(selectedaward);
                     this.getPlayer().getInventory().setCountList(obs_number, this.getObstacle().getStr_Award());
@@ -178,9 +177,9 @@ public abstract class BattleLoc extends Location {
         if((obsnumber*(this.getObstacle().getHealth())<this.getPlayer().getHealth()) && (this.getPlayer().getTotalDamage()>(this.getObstacle().getDamage()*obsnumber)-(this.getPlayer().getInventory().getArmor().getDurability()))){
             int new_blocking_count = this.getPlayer().getInventory().getArmor().getBlocking_count()-obsnumber;
             this.getPlayer().getInventory().getArmor().setBlocking_count(new_blocking_count);
-            if(this.getPlayer().getInventory().getArmor().getBlocking_count()==0){
+            if(this.getPlayer().getInventory().getArmor().getBlocking_count()==0 && !this.getPlayer().getInventory().getArmor().getName().equals("Yok")){
                 this.getPlayer().getInventory().getArmor().setDurability(0);
-                System.out.println("Zırhınız kırıldı...,Tamirciye gidip yaptırabilirsiniz ya da yeni bir kalkan alabilirsiniz !");
+                System.out.println("Zırhınız kullanılamaz halde...,Tamirciye gidip yaptırabilirsiniz ya da yeni bir kalkan alabilirsiniz !");
             }
             this.getPlayer().setHealth(this.getPlayer().getHealth()-(this.getObstacle().getDamage()*obsnumber));
 
@@ -189,28 +188,29 @@ public abstract class BattleLoc extends Location {
         }
         else{
             System.out.println("Öldünüz,Oyun bitti...");
+            System.exit(0);
             return false;
         }
     }
 
-
-    public void obstacleStats(){
-        System.out.println(this.getObstacle().getName() + " Değerleri");
-        System.out.println("--------------------------");
-        System.out.println("Sağlık : " + this.getObstacle().getHealth());
-        System.out.println("Hasar  : " + this.getObstacle().getDamage());
-    }
-    public void playerStats(){
-        System.out.println("Oyuncu Değerleri");
-        System.out.println("-------------------");
-        System.out.println("Sağlık : "+this.getPlayer().getHealth());
-        System.out.println("Hasar : " + this.getPlayer().getTotalDamage());
-        System.out.println("Mevcut Para : " + this.getPlayer().getMoney());
-        System.out.println("Silah : " + this.getPlayer().getWeapon().getName());
-        System.out.println("Zırh : " + this.getPlayer().getInventory().getArmor().getName());
-        System.out.println("Zırh Dayanıklılığı : " + this.getPlayer().getInventory().getArmor().getName());
-        System.out.println("Bloklama : "+this.getPlayer().getInventory().getArmor().getBlocking_count());
-    }
+//
+//    public void obstacleStats(){
+//        System.out.println(this.getObstacle().getName() + " Değerleri");
+//        System.out.println("--------------------------");
+//        System.out.println("Sağlık : " + this.getObstacle().getHealth());
+//        System.out.println("Hasar  : " + this.getObstacle().getDamage());
+//    }
+//    public void playerStats(){
+//        System.out.println("Oyuncu Değerleri");
+//        System.out.println("-------------------");
+//        System.out.println("Sağlık : "+this.getPlayer().getHealth());
+//        System.out.println("Hasar : " + this.getPlayer().getTotalDamage());
+//        System.out.println("Mevcut Para : " + this.getPlayer().getMoney());
+//        System.out.println("Silah : " + this.getPlayer().getWeapon().getName());
+//        System.out.println("Zırh : " + this.getPlayer().getInventory().getArmor().getName());
+//        System.out.println("Zırh Dayanıklılığı : " + this.getPlayer().getInventory().getArmor().getName());
+//        System.out.println("Bloklama : "+this.getPlayer().getInventory().getArmor().getBlocking_count());
+//    }
     public Obstacle getObstacle() {
         return obstacle;
     }

@@ -20,7 +20,7 @@ public class ToolStore extends NormalLoc {
             System.out.println("1 - Silahlar");
             System.out.println("2 - Zırhlar");
             System.out.println("3-  Satış yap");
-            System.out.println("4 - Çıkış Yap");
+            System.out.println("4 - Geri dön");
             System.out.print("Seçiminiz: ");
 
             // Kullanıcıdan seçim al
@@ -37,9 +37,14 @@ public class ToolStore extends NormalLoc {
                     buyArm();
                     break;
                 case 3:
-                    printSellableAward();
-                    sellItem();
-                    break;
+                    if(this.getPlayer().getInventory().getAwardsList().isEmpty()){
+                        System.out.println("Envanter boş , Satılabilecek herhangi bir şey yok");
+                        break;
+                    } else{
+                        printSellableAward();
+                        sellItem();
+                        break;
+                    }
                 case 4:
                     System.out.println("Mağazadan çıkılıyor...");
                     flag = false;
@@ -161,6 +166,7 @@ public class ToolStore extends NormalLoc {
                 }
             }
         }
+        System.out.println("Çıkış yapmak için 0'a basınız");
     }
     public void sellItem(){
         System.out.println("Satılacak eşyayı seçin");
@@ -336,6 +342,10 @@ public class ToolStore extends NormalLoc {
                         System.out.println("Yetersiz miktar! Stokta yeterince " + award.getName() + " yok.");
                     }
                 }
+            case 9:
+                this.onLocatin();
+                break;
+
             default:
                 System.out.println("Geçersiz değer tekrar deneyiniz !");
         }

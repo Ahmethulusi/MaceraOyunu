@@ -1,34 +1,30 @@
-import java.util.Scanner;
-
-public class Town extends NormalLoc{
-
-
-    public Town(Player player) {
-        super(player, "Kasaba");
+public class Camp_Area extends NormalLoc{
+    public Camp_Area(Player player) {
+        super(player, "Kamp Alanı");
     }
 
     @Override
     public boolean onLocatin() {
-        kasabaya_git(this.getPlayer());
-        return true;
+        Go_CampArea(this.getPlayer());
+        return super.onLocatin();
     }
-
-    public boolean kasabaya_git(Player player) {
+    public boolean Go_CampArea(Player player) {
         Location location = null;
         Quit quit = new Quit(player);
         while(true){
             System.out.println("#############\n");
-            System.out.println("1 - Eşya dükkanı\n");
-            System.out.println("2 - Demirci\n");
+            System.out.println("1   Dinlen\n");
+            System.out.println("2 - Ateş yak\n");
+ //           System.out.println("2 - Ateş yak\n");
             System.out.println("3 - Geri dön\n");
             System.out.println("#############");
+
             int selection = input.nextInt();
             switch (selection) {
                 case 1:
-                    location = new ToolStore(player);
+                    location = new SafeHouse(player);
                     break;
                 case 2:
-                    location = new BlackSmith(player);
                     break;
                 case 3:
                     location = new Quit(player);
@@ -43,7 +39,6 @@ public class Town extends NormalLoc{
                 break;
             }
         }
-    return  true;
+        return  true;
     }
-
 }

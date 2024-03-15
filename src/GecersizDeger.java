@@ -8,6 +8,7 @@ public class GecersizDeger extends Location{
 
     @Override
     public boolean onLocatin() {
+        System.out.println("Lütfen geçerli bir değer giriniz.");
         return true;
     }
 }

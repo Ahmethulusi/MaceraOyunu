@@ -43,14 +43,14 @@ public class Game {
                     System.exit(0);
                     break;
                 case 1:
-                    location = new Town(player);
+                    location = new Kiyi_kasabasi(player);
                     break;
                 case 2:
                     location = new Cuha_Forest(player);
                     break;
-//                case 3:
-//                    location = new Anemon_Mount(player);
-//                    break;
+                case 3:
+                    location = new Anemon_Mount(player);
+                    break;
 //                case 4:
 //                    location = new Border(player);
 //                    break;
@@ -67,6 +67,7 @@ public class Game {
 
             if(!location.onLocatin()) {
                 System.out.println("GAME OVER");
+                System.exit(0);
                 break;
             }
         }
