@@ -17,17 +17,9 @@ public class Awards {
         this.count = count;
         this.flag = true;
     }
-//
-//    static ArrayList<Awards> awards(){
-//        ArrayList<Awards> awardList = new ArrayList<>();
-//        awardList.add(new Awards("Diş",1,10));
-//        awardList.add(new Awards("Kürk",2,40));
-//        awardList.add(new Awards("Elma",3,2));
-//        awardList.add(new Awards("Morfin",4,10));
-//        return awardList;
-//    }
+
     public static Awards[] awards(){
-        Awards[] awardList = new Awards[9];// Hepsi satılır , bazıları craft edilir, bazıları yenilip can doldurur
+        Awards[] awardList = new Awards[10];// Hepsi satılır , bazıları craft edilir, bazıları yenilip can doldurur
         awardList[0] =new Awards("Diş",1,10,0,true);//
         awardList[1] =new Awards("Kürk",2,30,0,true); // craft yapılır
         awardList[2] =new Awards("Elma",3,1,0,true); // 10 Can arttırır.
@@ -37,7 +29,7 @@ public class Awards {
         awardList[6] =new Awards("Odun",7,2,0,true);//
         awardList[7] =new Awards("Tahıl",8,10,0,true);//
         awardList[8] =new Awards("Çalıntı Eşya",9,25,0,true);//
-
+        awardList[9] =new Awards("Donmuş Buz",10,50,0,true);
         return awardList;
     }
 

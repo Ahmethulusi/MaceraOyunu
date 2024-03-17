@@ -1,4 +1,4 @@
-public class Eskiya extends Obstacle{
+public class Eskiya extends Enemy {
 
 
     // 1 Haydut 2 tabanca mermisiyle ölsün

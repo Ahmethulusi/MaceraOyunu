@@ -18,19 +18,27 @@ public class BlackSmith extends NormalLoc{
     @Override
     public boolean onLocatin() {
 
-        while(flag){
+        while(flag) {
             System.out.println("----------- Demirciye hoşgeldiniz ! -----------");
-            System.out.println("Mevcut paranız : "+ this.getPlayer().getMoney());
+            System.out.println("Mevcut paranız : " + this.getPlayer().getMoney());
             int avaliable_levelof_weapon = this.getPlayer().getInventory().getWeapon().getLevel();
             int avaliable_levelof_armor = this.getPlayer().getInventory().getArmor().getLevel();
             System.out.println("---------------------------------");
-            System.out.println("Zırh tamir ücreti "+repair_armor+" gold");
-            System.out.println("2 level silah geliştirmesi "+weapon_first_development +" gold\n"+"3 level silah geliştirmesi "+weapon_second_development+" gold\n"+"4 level silah geliştirmesi"+weapon_third_development+" gold");
-            System.out.println("2 level zırh geliştirmesi "+armor_first_development +" gold\n"+"3 level zırh geliştirmesi "+armor_second_development+"\n"+"4 level zırh geliştirmesi"+armor_third_development);
+            System.out.println("Zırh tamir ücreti " + repair_armor + " gold");
+            System.out.println("2 level silah geliştirmesi " + weapon_first_development + " gold\n" + "3 level silah geliştirmesi " + weapon_second_development + " gold\n" + "4 level silah geliştirmesi" + weapon_third_development + " gold");
+            if (!this.getPlayer().getInventory().getArmor().getName().equals("Yok")) {
+                System.out.println("2 level zırh geliştirmesi " + armor_first_development + " gold\n" + "3 level zırh geliştirmesi " + armor_second_development + "\n" + "4 level zırh geliştirmesi" + armor_third_development);
+            }
             System.out.println("---------------------------------");
-            System.out.println("1 - Zırhı tamir ettir ! ");
-            System.out.println("2 - "+(avaliable_levelof_weapon+1)+" level silah geliştirmesi");
-            System.out.println("3 - "+(avaliable_levelof_armor+1)+" level zırh geliştirmesi");
+            if (!this.getPlayer().getInventory().getArmor().getName().equals("Yok") && this.getPlayer().getInventory().getArmor().getBlocking_count() == 0){
+                System.out.println("1 - Zırhı tamir ettir ! ");
+            }
+            if(!this.getPlayer().getInventory().getWeapon().getName().equals("Yumruk")) {
+                System.out.println("2 - " + (avaliable_levelof_weapon + 1) + " level silah geliştirmesi");
+            }
+            if(!this.getPlayer().getInventory().getArmor().getName().equals("Yok")) {
+                System.out.println("3 - " + (avaliable_levelof_armor + 1) + " level zırh geliştirmesi");
+            }
             System.out.println("4 - Geri dön");
             int selection = input.nextInt();
             switch (selection){
@@ -91,6 +99,8 @@ public class BlackSmith extends NormalLoc{
             this.getPlayer().getInventory().getArmor().setDurability(available_armor.getDurability()+5);
             this.getPlayer().getInventory().getArmor().setDurability(available_armor.getBlocking_count()+3);
             this.getPlayer().setMoney(new_money);
+            this.getPlayer().getInventory().getArmor().setLevel(2);
+
         }else{
             System.out.println("Yeterli paranız bulunmamaktadır !");
         }
@@ -104,6 +114,8 @@ public class BlackSmith extends NormalLoc{
             this.getPlayer().getInventory().getArmor().setDurability(available_armor.getDurability()+10);
             this.getPlayer().getInventory().getArmor().setDurability(available_armor.getBlocking_count()+2);
             this.getPlayer().setMoney(new_money);
+            this.getPlayer().getInventory().getArmor().setLevel(3);
+
         }else{
             System.out.println("Yeterli paranız bulunmamaktadır !");
         }
@@ -116,6 +128,8 @@ public class BlackSmith extends NormalLoc{
             this.getPlayer().getInventory().getArmor().setDurability(available_armor.getDurability()+15);
             this.getPlayer().getInventory().getArmor().setDurability(available_armor.getBlocking_count()+1);
             this.getPlayer().setMoney(new_money);
+            this.getPlayer().getInventory().getArmor().setLevel(4);
+
         }else{
             System.out.println("Yeterli paranız bulunmamaktadır !");
         }
@@ -128,6 +142,8 @@ public class BlackSmith extends NormalLoc{
         if(new_money>=0){
             this.getPlayer().getInventory().getWeapon().setDamage(available_weapon.getDamage()+5);
             this.getPlayer().setMoney(new_money);
+            this.getPlayer().getInventory().getWeapon().setLevel(2);
+
         }else{
             System.out.println("Yeterli paranız bulunmamaktadır !");
         }
@@ -139,6 +155,8 @@ public class BlackSmith extends NormalLoc{
         if(new_money>=0){
             this.getPlayer().getInventory().getWeapon().setDamage(available_weapon.getDamage()+10);
             this.getPlayer().setMoney(new_money);
+            this.getPlayer().getInventory().getWeapon().setLevel(3);
+
         }else{
             System.out.println("Yeterli paranız bulunmamaktadır !");
         }
@@ -150,6 +168,7 @@ public class BlackSmith extends NormalLoc{
         if(new_money>=0){
             this.getPlayer().getInventory().getWeapon().setDamage(available_weapon.getDamage()+15);
             this.getPlayer().setMoney(new_money);
+            this.getPlayer().getInventory().getWeapon().setLevel(4);
         }else{
             System.out.println("Yeterli paranız bulunmamaktadır !");
         }

@@ -1,20 +1,17 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class BattleLoc extends Location {
 
 
 
-    private Obstacle obstacle;
+    private Enemy enemy;
 
     private String name;
     private String str_award;
     private int int_award;
     private boolean destroy_flag_6=false;
 
-    public BattleLoc(Player player, String name, Obstacle obstacle, String str_award, int int_award, boolean destroy_flag) {
+    public BattleLoc(Player player, String name, Enemy enemy, String str_award, int int_award, boolean destroy_flag) {
         super(player,name);
-        this.obstacle = obstacle;
+        this.enemy = enemy;
         this.name = name;
         this.str_award = str_award;
         this.int_award = int_award;
@@ -27,6 +24,7 @@ public abstract class BattleLoc extends Location {
     @Override
     public boolean onLocatin() {
                String name = this.getName();
+               System.out.println("Can: "+this.getPlayer().getHealth());
                if(name.equals("Mağara")){
                    if(!getPlayer().isCave_flag()){
                        System.out.println("Temizlenmiş bölge ... ");
@@ -75,7 +73,7 @@ public abstract class BattleLoc extends Location {
         battleSimulation1.startSimulation();
         int targetawardcount  = 0;
         int targetawardcount1 = 0;
-        int obs_number = obstacle.randomObstacleNumber();
+        int obs_number = enemy.randomObstacleNumber();
         if(this.getObstacle().getName().equals("Ayı")){
             obs_number=1;
         }else if(this.getObstacle().getName().equals("Kurt")){
@@ -90,14 +88,16 @@ public abstract class BattleLoc extends Location {
                     this.getPlayer().setAhead_of_forest_flag(false);
                 } else if (looking_for_Name.equals("Terkedilmiş Ev")) {
                     this.getPlayer().setEnemy_camp1_flag(false);
-                } else if (looking_for_Name.equals("Yükselen Duman")) {
+                } else if (looking_for_Name.equals("Yükselen duman")) {
                     this.getPlayer().setEnemy_camp2_flag(false);
+                }else if (looking_for_Name.equals("Dağ girişi")){
+                    this.getPlayer().setEnemy_camp3_flag(false);
                 }
 
 
                 //  ############### BURADAN AŞAĞISI SAVAŞTAN SAĞ ÇIKMA DURUMUNDA ÖDÜL SİSTEMİ VE ENVANTERDEKİ DÜZENLEMELERLE İLGİLİ ##################
                 if(this.getObstacle().getInt_Award()==0){
-                    System.out.println(obs_number + " tane " + this.getObstacle().getStr_Award() + " ve 1 " + this.getStr_Award() + "+ ");
+                    System.out.println(obs_number + " tane " + this.getObstacle().getStr_Award() + " ve 1 " + this.getStr_Award());
                 }
                 else{
                     System.out.println(obs_number + " tane " + this.getObstacle().getStr_Award() + " ve 1 " + this.getStr_Award() + "+ " + (this.getObstacle().getInt_Award()*obs_number + int_award) + " gold kazandınız");
@@ -151,6 +151,8 @@ public abstract class BattleLoc extends Location {
                     Awards selectedaward2 = Awards.getAwardObjByName(str_award);
                     this.getPlayer().getInventory().addAward(selectedaward2);
                     this.getPlayer().getInventory().setCountList(1, str_award);
+                }
+                while(flag){
                     System.out.println("Ana menüye dönmek için Q'ya bas.");
                     String choose = input.next().toUpperCase();
                     if(choose.equals("Q"))
@@ -158,9 +160,8 @@ public abstract class BattleLoc extends Location {
                     else{
                         continue;
                     }
-
                 }
-            destroy_flag_6=false;
+                destroy_flag_6=false;
             } else {
                 return false;
             }
@@ -211,12 +212,12 @@ public abstract class BattleLoc extends Location {
 //        System.out.println("Zırh Dayanıklılığı : " + this.getPlayer().getInventory().getArmor().getName());
 //        System.out.println("Bloklama : "+this.getPlayer().getInventory().getArmor().getBlocking_count());
 //    }
-    public Obstacle getObstacle() {
-        return obstacle;
+    public Enemy getObstacle() {
+        return enemy;
     }
 
-    public void setObstacle(Obstacle obstacle) {
-        this.obstacle = obstacle;
+    public void setObstacle(Enemy enemy) {
+        this.enemy = enemy;
     }
 
     public String getStr_Award() {

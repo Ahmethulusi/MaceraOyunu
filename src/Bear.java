@@ -1,4 +1,4 @@
-public class Bear extends Obstacle{
+public class Bear extends Enemy {
     // 1 Ayı 10 tabanca mermisiyle ölecek
     // 1 Ayı 5 Avcı tüfeği
     // 1 Ayı 2 pompalı

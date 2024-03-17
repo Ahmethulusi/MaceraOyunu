@@ -25,7 +25,7 @@ public class Anemon_Mount extends Location{
             int selection = input.nextInt();
             switch (selection) {
                 case 1:
-              //      location = new Mount_entrance(player);
+                    location = new Mount_entrance(player);
                     break;
                 case 2:
               //      location = new Mount_inside(player);

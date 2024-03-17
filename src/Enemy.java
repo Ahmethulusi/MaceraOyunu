@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Obstacle{
+public class Enemy {
     private int id;
     private String name;
     private int damage;
@@ -10,7 +10,7 @@ public class Obstacle{
     private int health;
 
 
-    public Obstacle(int id, String name, int damage,int health,String str_Award,int int_Award) {
+    public Enemy(int id, String name, int damage, int health, String str_Award, int int_Award) {
         this.id = id;
         this.name = name;
         this.damage = damage;

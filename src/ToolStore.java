@@ -15,7 +15,7 @@ public class ToolStore extends NormalLoc {
 
         while (flag) {
             System.out.println("-------Mağazaya Hoşgeldiniz!-------");
-            System.out.println("Mevcut paranız: " + displayBalance());
+            System.out.println("Mevcut paranız: " + displayBalance()+" gold");
             System.out.println("Yapmak istediğiniz işlemi seçiniz:");
             System.out.println("1 - Silahlar");
             System.out.println("2 - Zırhlar");
