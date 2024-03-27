@@ -19,6 +19,7 @@ public class ToolStore extends NormalLoc {
             System.out.println("Yapmak istediğiniz işlemi seçiniz:");
             System.out.println("1 - Silahlar");
             System.out.println("2 - Zırhlar");
+           // System.out.println("3-  İksirler");
             System.out.println("3-  Satış yap");
             System.out.println("4 - Geri dön");
             System.out.print("Seçiminiz: ");
@@ -36,6 +37,11 @@ public class ToolStore extends NormalLoc {
                     printArms();
                     buyArm();
                     break;
+//                case 3:
+//                    // İksirler ve ev yapım malzemeleri gibi temel ihtiyaçlar satılsın
+//                    printPotions();
+//                    buyPotions();
+//                    break;
                 case 3:
                     if(this.getPlayer().getInventory().getAwardsList().isEmpty()){
                         System.out.println("Envanter boş , Satılabilecek herhangi bir şey yok");
@@ -166,7 +172,8 @@ public class ToolStore extends NormalLoc {
                 }
             }
         }
-        System.out.println("Çıkış yapmak için 0'a basınız");
+
+        System.out.println("\nÇıkış yapmak için 0'a basınız");
     }
     public void sellItem(){
         System.out.println("Satılacak eşyayı seçin");
@@ -348,6 +355,57 @@ public class ToolStore extends NormalLoc {
 
             default:
                 System.out.println("Geçersiz değer tekrar deneyiniz !");
+        }
+    }
+    public void printPotions(){
+        System.out.println("------ İksirler ------");
+        System.out.println("Mevcut paranız: " + displayBalance());
+        System.out.println();
+        for(Potions p:Potions.potion()){
+            System.out.println(p.getId() + " - " + p.getName() + " > Fiyat: " + p.getPrice() + "- Özellik: " + p.getFeature()+"  Etki: "+p.getMagnitude());
+        }
+        System.out.println("\n\tMağazaya geri dönmek için 4'e basınız");
+
+    }
+    public void buyPotions() {
+        int targetpotioncount=0;
+        System.out.println("Lütfen bir seçim yapınız:");
+        int selection = input.nextInt();
+        if (selection == 4) {
+            onLocatin();
+        } else {
+
+            while (selection < 1 || selection > Potions.potion().length) {
+                System.out.println("Geçersiz değer ! Tekrar deneyiniz:");
+                selection = input.nextInt();
+            }
+            Potions selectedPotion = Potions.getPotionObjById(selection);
+
+            if (selectedPotion != null) {
+                for (Potions potion : this.getPlayer().getInventory().getPotionsList()) {
+                    if (potion != null) {
+                        if (potion.getName().equals(selectedPotion.getName())) {
+                            targetpotioncount= potion.getCount();
+                        }
+                    }
+                }
+                if (selectedPotion.getPrice() > this.getPlayer().getMoney()) {
+                    System.out.println("Yeterli paranız bulunmamaktadır !");
+                    onLocatin();
+                } else {
+                    System.out.println(selectedPotion.getName() + "  satın aldınız !");
+                    int balance = this.getPlayer().getMoney() - selectedPotion.getPrice();
+                    this.getPlayer().setMoney(balance);
+                    this.getPlayer().getInventory().addPotion(selectedPotion);
+                    if(targetpotioncount==0){
+                        this.getPlayer().getInventory().setCountPotionList(1,selectedPotion.getName());
+                    }else{
+                        this.getPlayer().getInventory().setCountPotionList(targetpotioncount+1,selectedPotion.getName());
+                    }
+
+
+                }
+            }
         }
     }
 }

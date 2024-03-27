@@ -14,7 +14,7 @@ public class GoInventory extends NormalLoc {
         boolean ctrl_variable = true;
         do {
             displayInventory();
-            System.out.println("Ana menüye dön (E/H) ?");
+            System.out.println("\n\tAna menüye dön (E/H) ?");
             String selection = input.next().toUpperCase();
             if(selection.equals("E")){
                 return true;
@@ -22,7 +22,7 @@ public class GoInventory extends NormalLoc {
                 continue;
             }
             else{
-                System.out.println("Geçersin değer !");
+                System.out.println("Geçersiz değer !");
                 continue;
             }
         }while(ctrl_variable);
@@ -31,13 +31,17 @@ public class GoInventory extends NormalLoc {
     }
     // Bu OOP için kötü bir kullanım bunu Inventoryde return ile döndürüp burada kullanman gerekiyor
     public void displayInventory(){
+        System.out.println("\n######### ENVANTER #########");
         System.out.println(
-                "Silah : " + this.getPlayer().getInventory().getWeapon().getName()+
-                        "\t Silahın Hasarı:"+this.getPlayer().getInventory().getWeapon().getDamage()+
-                        "\nZırh :" + this.getPlayer().getInventory().getArmor().getName() +
-                        "\tDayanıklılık : "+this.getPlayer().getInventory().getArmor().getDurability()+
-                        "\tBloklama sayısı : "+this.getPlayer().getInventory().getArmor().getBlocking_count());
-        System.out.println("Eşyalar :\n");
+                "\nSilah : " + this.getPlayer().getInventory().getWeapon().getName()+ "  ,"+
+                        "\t Hasarı:"+this.getPlayer().getInventory().getWeapon().getDamage()+"  ,"+
+                        "\t Level :     "+this.getPlayer().getInventory().getWeapon().getLevel()+
+                        "\n\nZırh : " + this.getPlayer().getInventory().getArmor().getName() +"  ,"+
+                        "\t Dayanıklılık : "+this.getPlayer().getInventory().getArmor().getDurability()+"  ,"+
+                        "\t B.sayısı : "+this.getPlayer().getInventory().getArmor().getBlocking_count()+"  ,"+
+                        "\t Level : "+this.getPlayer().getInventory().getArmor().getLevel()+
+                        "\nEşyalar :\n");
+
         Player player = this.getPlayer();
 
         if (player != null) {
@@ -49,6 +53,21 @@ public class GoInventory extends NormalLoc {
                         Awards award = awards.get(i);
                         if (award != null) {
                             System.out.println(award.getName() + " x" + award.getCount()+"\t");
+
+                        }
+                    }
+                }
+            }
+        }
+        if (player != null) {
+            Inventory inventory = player.getInventory();
+            if (inventory != null) {
+                List<Potions> potions = inventory.getPotionsList();
+                if ( potions!= null) {
+                    for (int i = 0; i < potions.size(); i++) {
+                        Potions potion = potions.get(i);
+                        if (potion != null) {
+                            System.out.println(potion.getName() + " x" + potion.getCount()+"\t");
 
                         }
                     }

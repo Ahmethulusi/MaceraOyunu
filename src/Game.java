@@ -11,11 +11,11 @@ public class Game {
                 "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,\nWhen an unknown printer took a galley of type and scrambled it to make a type specimen book.\nIt has survived not only five centuries, but also the leap into electronic typesetting,\nRemaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, " +
                 "\nand more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum\n");
         System.out.println("Devam etmek için d ye bas");
-        String giris = input.next().toUpperCase(); // Kullanıcının girişini al
-        while (!giris.equals("D")) { // Eğer kullanıcı boşluk girmeden bir şeyler yazdıysa, tekrar giriş iste
+        do{ // Eğer kullanıcı boşluk girmeden bir şeyler yazdıysa, tekrar giriş iste
+            String giris = input.next().toUpperCase(); // Kullanıcının girişini al
+            if(giris.equals("D"))break;
             System.out.println("Geçersiz giriş. Devam etmek için sadece d'ye basın.");
-            giris = input.nextLine();
-        }
+        }while(true);
         System.out.println("Devam ediliyor...");
         player.makeInit();
         Location location = null;

@@ -1,6 +1,6 @@
 public class Omeron extends GameChar{
     public Omeron() {
-        super("Omeron",0, 0, 24, 25);
+        super("Omeron",0, 30, 100, 25);
     }
 }
 

@@ -13,25 +13,25 @@ public class Cuha_Forest extends Location{
         Location location = null;
         Quit quit = new Quit(player);
         while(true){
-            System.out.println("1- Ormanın İçine doğru ilerle");
-            System.out.println("2- Mağaraya gir");
-            System.out.println("3- Terkedilmiş eve gir");
-            System.out.println("4- Yükselen bir duman var istersen bi bak !");
-            System.out.println("5- Çıkış yap");
-            System.out.println("Seç : ");
+            System.out.println("\n\t ################ ÇUHA ORMANI ############### ");
+            System.out.println("\n\t1 - Yükselen bir duman var istersen bi bak !\n");
+            System.out.println("\t2- Terkedilmiş eve gir\n");
+            System.out.println("\t3- Ormanın İçine doğru ilerle\n");
+            System.out.println("\t4- Mağaraya gir\n");
+            System.out.println("\t5- Çıkış yap\n");
             int selection = input.nextInt();
             switch (selection) {
                 case 1:
-                    location = new Cave(player);
+                    location = new Rising_smoke(player);
                     break;
                 case 2:
-                    location = new Forest(player);
-                    break;
-                case 3:
                     location = new Abondoned_house(player);
                     break;
+                case 3:
+                    location = new Forest(player);
+                    break;
                 case 4:
-                    location = new Rising_smoke(player);
+                    location = new Cave(player);
                     break;
                 case 5:
                     location = new Quit(player);

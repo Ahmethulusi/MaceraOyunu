@@ -17,21 +17,24 @@ public class Anemon_Mount extends Location{
         Quit quit = new Quit(player);
         while(true){
             System.out.println("1 - Dağ eteğindeki terkedilmiş kasabayı kontrol et .");
-            System.out.println("2 - Dağın içine gir");
+            if(this.getPlayer().isSide_task1()){
+                System.out.println("2 - Dağın içine gir");
+            }else{
+                System.out.println("2 - Dağın içindeki yoldan devam et ");
+            }
             System.out.println("3 - Dağın zirvesine doğru tırman.");
-            //System.out.println("");
             System.out.println("4 - Geri dön");
             System.out.println("Seç : ");
             int selection = input.nextInt();
             switch (selection) {
                 case 1:
-                    location = new Mount_entrance(player);
+                    location = new Mount_Foothills(player);
                     break;
                 case 2:
-              //      location = new Mount_inside(player);
+                    location = new InsideOfTheMountain(player);
                     break;
                 case 3:
-              //      location = new MountainTop(player);
+                    location = new MountainTop(player);
                     break;
                 case 4:
                     location = new Quit(player);

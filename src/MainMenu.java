@@ -10,9 +10,9 @@ public class MainMenu{
         System.out.println("----------- Ana Menü ----------");
         System.out.println("1 - Oyunu Başlat");
         System.out.println("2 - Ayarlar");
-        System.out.println("3 - Zorluk");
-        System.out.println("4 - Diller");
-        System.out.println("5 - Çıkış");
+//        System.out.println("3 - Zorluk");
+//        System.out.println("4 - Diller");
+        System.out.println("3 - Çıkış");
         System.out.println("-------------------------------");
         System.out.print("Seçiminiz : ");
         int choice = input.nextInt();
@@ -24,14 +24,14 @@ public class MainMenu{
             case 2:
                 showSettings();
                 break;
-            case 3:
+//            case 3:
 //                zorluklar();
-                break;
-
-            case 4:
-                //showLanguages();
-                break;
-            case 5:
+//                break;
+//
+//            case 4:
+//                showLanguages();
+//                break;
+            case 3:
                 System.out.println("Oyundan çıkılıyor...");
                 System.exit(0);
                 break;

@@ -19,7 +19,7 @@ public class Awards {
     }
 
     public static Awards[] awards(){
-        Awards[] awardList = new Awards[10];// Hepsi satılır , bazıları craft edilir, bazıları yenilip can doldurur
+        Awards[] awardList = new Awards[15];// Hepsi satılır , bazıları craft edilir, bazıları yenilip can doldurur
         awardList[0] =new Awards("Diş",1,10,0,true);//
         awardList[1] =new Awards("Kürk",2,30,0,true); // craft yapılır
         awardList[2] =new Awards("Elma",3,1,0,true); // 10 Can arttırır.
@@ -29,7 +29,10 @@ public class Awards {
         awardList[6] =new Awards("Odun",7,2,0,true);//
         awardList[7] =new Awards("Tahıl",8,10,0,true);//
         awardList[8] =new Awards("Çalıntı Eşya",9,25,0,true);//
-        awardList[9] =new Awards("Donmuş Buz",10,50,0,true);
+        awardList[9] =new Awards("Donmuş Yürek",10,50,0,true);
+        awardList[10]=new Awards("Mistik Diş",10,40,0,true);
+        awardList[11]=new Awards("Yakut",11,70,0,true);
+        awardList[12]=new Awards("Zindan Anahtarı",12,5,0,true);
         return awardList;
     }
 

@@ -45,16 +45,26 @@ public abstract class BattleLoc extends Location {
                        System.out.println("Temizlenmiş bölge ... ");
                        return true;
                    }
+               }if(name.equals("Maden")) {
+                    if (!getPlayer().isSide_task1()) {
+                        System.out.println("Temizlenmiş bölge ... ");
+                        return true;
+                    }
+                }if(name.equals("Dağın İçi")){
+                    if(!getPlayer().isEnemy_camp2_flag()) {
+                        System.out.println("Temizlenmiş bölge ... ");
+                        return true;
+                    }
                }
 
-            //   obstacleStats();
-           //    playerStats();
 
-               System.out.println("Dikkat et buradak 1 veya daha fazla "+this.getObstacle().getName()+" olabilir.");
+               int obs_number = enemy.randomObstacleNumber();
+               System.out.println("Dikkatli ol burada bir veya daha fazla "+this.getObstacle().getName()+" olabilir.");
+               enemyStats(obs_number);
                System.out.println("<S>avaş veya <K>aç");
                String selection = input.next().toUpperCase();
                if(selection.equals("S")){
-                   boolean isWon= savas(this.getObstacle().getStr_Award());
+                   boolean isWon= savas(this.getObstacle().getStr_Award(),obs_number);
                    return isWon;
                } else if (selection.equals("K")) {
                    System.out.println("Ana menüye dönülüyor...");
@@ -68,17 +78,22 @@ public abstract class BattleLoc extends Location {
 
 
     boolean flag=true;
-    public boolean savas(String name) {
+    public boolean savas(String name,int obs_number) {
         BattleSimulation battleSimulation1=new BattleSimulation();
         battleSimulation1.startSimulation();
         int targetawardcount  = 0;
         int targetawardcount1 = 0;
-        int obs_number = enemy.randomObstacleNumber();
+
         if(this.getObstacle().getName().equals("Ayı")){
             obs_number=1;
         }else if(this.getObstacle().getName().equals("Kurt")){
             obs_number =2;
+        }else if(this.getObstacle().getName().equals("Mistik Dağ Canavarı")){
+            obs_number=1;
+        }else if(this.getObstacle().getName().equals("Kral Yeti")){
+            obs_number=1;
         }
+
         do {
             if (combat(obs_number)) {
                 String looking_for_Name =this.getName();
@@ -92,10 +107,23 @@ public abstract class BattleLoc extends Location {
                     this.getPlayer().setEnemy_camp2_flag(false);
                 }else if (looking_for_Name.equals("Dağ girişi")){
                     this.getPlayer().setEnemy_camp3_flag(false);
+                }else if (looking_for_Name.equals("Dağın içi")){
+                    this.getPlayer().setEnemy_camp3_flag(false);
+                }else if (looking_for_Name.equals("Zirve")){
+                    this.getPlayer().setEnemy_camp3_flag(false);
+                }else if(looking_for_Name.equals("Canavar Yuvası")){
+                    this.getPlayer().setEnemy_camp4_flag(false);
+                }else if(looking_for_Name.equals("Maden")){
+                    this.getPlayer().setSide_task1(false);
                 }
 
+                if(looking_for_Name.equals("Terkedilmiş Ev")){
+                    obs_number=1;
+                } else if (looking_for_Name.equals("Maden")) {
+                    obs_number=1;
+                }
 
-                //  ############### BURADAN AŞAĞISI SAVAŞTAN SAĞ ÇIKMA DURUMUNDA ÖDÜL SİSTEMİ VE ENVANTERDEKİ DÜZENLEMELERLE İLGİLİ ##################
+                //  #############a## BURADAN AŞAĞISI SAVAŞTAN SAĞ ÇIKMA DURUMUNDA ÖDÜL SİSTEMİ VE ENVANTERDEKİ DÜZENLEMELERLE İLGİLİ ##################
                 if(this.getObstacle().getInt_Award()==0){
                     System.out.println(obs_number + " tane " + this.getObstacle().getStr_Award() + " ve 1 " + this.getStr_Award());
                 }
@@ -106,14 +134,14 @@ public abstract class BattleLoc extends Location {
                 for (Awards award : this.getPlayer().getInventory().getAwardsList()) {
                     if (award != null) {
                         if (award.getName().equals(getObstacle().getStr_Award())) {
-                            targetawardcount = award.getCount();
+                            targetawardcount += award.getCount();
                         }
                     }
                 }
                 for (Awards award : this.getPlayer().getInventory().getAwardsList()) {
                     if (award != null) {
-                        if (award.getName().equals(str_award)) {
-                             targetawardcount1= award.getCount();
+                        if (award.getName().equals(this.getStr_Award())) {
+                             targetawardcount1 += award.getCount();
                         }
                     }
                 }
@@ -121,20 +149,10 @@ public abstract class BattleLoc extends Location {
                 if (targetawardcount > 0) {
                     //Oyuncu savaşı kazanırsa gelen ödüllerle birlikte envanterdeki ve parasındaki düzenlemeler aşağıdaki gibi olur.
                  //   playerStats();
-                    Awards selectedaward = Awards.getAwardObjByName(name);
 //                    this.getPlayer().getInventory().addAward(selectedaward);
-                    this.getPlayer().getInventory().setCountList((targetawardcount + obs_number), this.getObstacle().getStr_Award());
-                    // Aşağıdaki mekan ödülleri için düzenleme
-                    Awards selectedaward2 = Awards.getAwardObjByName(str_award);
-                    if(targetawardcount1>0){
-                        //this.getPlayer().getInventory().addAward(selectedaward2);
-                        this.getPlayer().getInventory().setCountList(targetawardcount1++,str_award);
-                    }
-                    else{
-                        this.getPlayer().getInventory().addAward(selectedaward);
-                        this.getPlayer().getInventory().setCountList(1,str_award);
-                    }
-                        System.out.println("Ana menüye dönmek için Q'ya bas.");
+
+                    this.getPlayer().getInventory().setCountAwardList((targetawardcount + obs_number), this.getObstacle().getStr_Award());
+                    System.out.println("Geri dönmek için Q'ya bas.");
                     String choose = input.next().toUpperCase();
                     if(choose.equals("Q"))
                         flag = false;
@@ -146,14 +164,35 @@ public abstract class BattleLoc extends Location {
                //     playerStats();
                     Awards selectedaward = Awards.getAwardObjByName(name);
                     this.getPlayer().getInventory().addAward(selectedaward);
-                    this.getPlayer().getInventory().setCountList(obs_number, this.getObstacle().getStr_Award());
+                    this.getPlayer().getInventory().setCountAwardList(obs_number, this.getObstacle().getStr_Award());
                     // Mekan Ödülü
+
+                }
+                // Aşağıdaki mekan ödülleri için düzenleme
+                if(targetawardcount1>0){
+                    this.getPlayer().getInventory().setCountAwardList((targetawardcount1+obs_number),str_award);
+                }
+                else{
                     Awards selectedaward2 = Awards.getAwardObjByName(str_award);
                     this.getPlayer().getInventory().addAward(selectedaward2);
-                    this.getPlayer().getInventory().setCountList(1, str_award);
+                    this.getPlayer().getInventory().setCountAwardList(1,str_award);
+                }
+                if(this.getName().equals("Maden")){
+                    System.out.println("Mahkumları kurtarmak için anahtarı kullanmak için E ye bas !");
+                    String selection =input.next().toUpperCase();
+                    if(selection.equals("E")){
+                       System.out.println("Zindandan Mehmet ve Ali isminde 2 mahkum kurtardın,Mehmet kıyı çarşısına gitmek istedi ve Ali'yi de  kampına götürdün artık onunla birlikte kalacaksın ");
+                        for (Awards award : this.getPlayer().getInventory().getAwardsList()) {
+                            if (award != null) {
+                                if (award.getName().equals("Zindan Anahtarı")) {
+                                    this.getPlayer().getInventory().getAwardsList().remove(award);
+                                }
+                            }
+                        }
+                    }
                 }
                 while(flag){
-                    System.out.println("Ana menüye dönmek için Q'ya bas.");
+                    System.out.println("Geri dönmek için Q'ya bas.");
                     String choose = input.next().toUpperCase();
                     if(choose.equals("Q"))
                         flag = false;
@@ -195,12 +234,22 @@ public abstract class BattleLoc extends Location {
     }
 
 //
-//    public void obstacleStats(){
-//        System.out.println(this.getObstacle().getName() + " Değerleri");
-//        System.out.println("--------------------------");
-//        System.out.println("Sağlık : " + this.getObstacle().getHealth());
-//        System.out.println("Hasar  : " + this.getObstacle().getDamage());
-//    }
+    public void enemyStats(int obs_number){
+        if(this.getObstacle().getName().equals("Ayı")){
+            obs_number=1;
+        }else if(this.getObstacle().getName().equals("Kurt")){
+            obs_number =2;
+        }else if(this.getObstacle().getName().equals("Mistik Dağ Canavarı")){
+            obs_number=1;
+        }else if(this.getObstacle().getName().equals("Kral Yeti")){
+            obs_number=1;
+        }
+
+        System.out.println(this.getObstacle().getName() + " Değerleri");
+        System.out.println("--------------------------");
+        System.out.println("Sağlık : " + (this.getObstacle().getHealth()*obs_number));
+        System.out.println("Hasar  : " + (this.getObstacle().getDamage()*obs_number));
+    }
 //    public void playerStats(){
 //        System.out.println("Oyuncu Değerleri");
 //        System.out.println("-------------------");

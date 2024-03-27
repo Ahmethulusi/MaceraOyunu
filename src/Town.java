@@ -18,9 +18,12 @@ public class Town extends NormalLoc{
         Quit quit = new Quit(player);
         while(true){
             System.out.println("#############\n");
+            System.out.println("0 - Geri dön\n");
             System.out.println("1 - Eşya dükkanı\n");
             System.out.println("2 - Demirci\n");
-            System.out.println("3 - Geri dön\n");
+            if(!this.getPlayer().isSide_task1()){
+                System.out.println("3 - Mehmeti bul\n");
+            }
             System.out.println("#############");
             int selection = input.nextInt();
             switch (selection) {
@@ -31,6 +34,9 @@ public class Town extends NormalLoc{
                     location = new BlackSmith(player);
                     break;
                 case 3:
+                    //location = new FindMehmet(player);
+                    break;
+                case 0:
                     location = new Quit(player);
                     return true;
                 default:

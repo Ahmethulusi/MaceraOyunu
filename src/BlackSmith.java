@@ -27,7 +27,7 @@ public class BlackSmith extends NormalLoc{
             System.out.println("Zırh tamir ücreti " + repair_armor + " gold");
             System.out.println("2 level silah geliştirmesi " + weapon_first_development + " gold\n" + "3 level silah geliştirmesi " + weapon_second_development + " gold\n" + "4 level silah geliştirmesi" + weapon_third_development + " gold");
             if (!this.getPlayer().getInventory().getArmor().getName().equals("Yok")) {
-                System.out.println("2 level zırh geliştirmesi " + armor_first_development + " gold\n" + "3 level zırh geliştirmesi " + armor_second_development + "\n" + "4 level zırh geliştirmesi" + armor_third_development);
+                System.out.println("2 level zırh geliştirmesi " + armor_first_development + " gold\n" + "3 level zırh geliştirmesi " + armor_second_development + "\n" + "4 level zırh geliştirmesi " + armor_third_development+" gold");
             }
             System.out.println("---------------------------------");
             if (!this.getPlayer().getInventory().getArmor().getName().equals("Yok") && this.getPlayer().getInventory().getArmor().getBlocking_count() == 0){
@@ -161,7 +161,7 @@ public class BlackSmith extends NormalLoc{
             System.out.println("Yeterli paranız bulunmamaktadır !");
         }
     }
-    public void developWeapon4(){//Level 3 silah geliştirme 20 gold
+    public void developWeapon4(){//Level 4 silah geliştirmesi için 3 tane donmuş buz istiyorum
         Weapon available_weapon= Weapon.getWeaponObjById(this.getPlayer().getInventory().getWeapon().getId());
         assert available_weapon != null;
         int new_money = this.getPlayer().getMoney()-weapon_third_development;
